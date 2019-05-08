@@ -69,7 +69,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="textFieldDidChange" destination="BYZ-38-t0r" eventType="editingDidEnd" id="VJ6-Un-V8Y"/>
+                                            <action selector="textFieldDidChange" destination="BYZ-38-t0r" eventType="editingChanged" id="Miv-Uh-Q9J"/>
                                         </connections>
                                     </textField>
                                 </subviews>
