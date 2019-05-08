@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     
     var nameObservationToken: NSKeyValueObservation?
-    var ageObservationToken: NSKeyValueObservation?
+//    var ageObservationToken: NSKeyValueObservation?
     var inputTextObservationToken: NSKeyValueObservation?
     
     @objc let user = User()
@@ -31,10 +31,12 @@ class ViewController: UIViewController {
             strongSelf.nameLabel.text = updatedName
         }
         
-        ageObservationToken = observe(\.user.age, options: .new) { (vc, change) in
-            guard let updatedAge = change.newValue else { return }
-            vc.ageLabel.text = String(updatedAge)
-        }
+//        ageObservationToken = observe(\.user.age, options: .new) { (vc, change) in
+//            guard let updatedAge = change.newValue else { return }
+//            vc.ageLabel.text = String(updatedAge)
+//        }
+        
+        addObserver(self, forKeyPath: #keyPath(user.age), options: .new, context: nil)
         
         inputTextObservationToken = observe(\.inputText, options: .new) { (vc, change) in
             guard let updatedInputText = change.newValue as? String else { return }
@@ -46,7 +48,8 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         nameObservationToken?.invalidate()
-        ageObservationToken?.invalidate()
+//        ageObservationToken?.invalidate()
+        inputTextObservationToken?.invalidate()
     }
     
     
@@ -62,5 +65,17 @@ class ViewController: UIViewController {
     @IBAction func textFieldDidChange() {
         inputText = textField.text
     }
+    
+    //MARK: - Another way to observe without tokens
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == #keyPath(user.age) {
+            
+            guard let updatedAge = change?[.newKey] as? Int else { return }
+            
+            ageLabel.text = String(updatedAge)
+        }
+    }
+    
 }
 
