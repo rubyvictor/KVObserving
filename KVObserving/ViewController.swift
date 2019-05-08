@@ -55,7 +55,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTapAge() {
-        user.age = 88
+//        user.age = 88
+        user.setValue(4444, forKey: "age")
     }
     
     @IBAction func textFieldDidChange() {
